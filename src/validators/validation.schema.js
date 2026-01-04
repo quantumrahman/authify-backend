@@ -39,3 +39,13 @@ const signInValidationSchema = zod
             .max(64, 'Password must not be more than 64 characters.'),
     })
     .strict();
+
+// otp validation schema ------------------------------->
+const otpValidationSchema = zod
+    .object({
+        otp: zod
+            .string({ required_error: 'OTP is required.' })
+            .trim()
+            .regex(/^\d{6}$/, 'OTP must be a 6-digit.'),
+    })
+    .strict();
