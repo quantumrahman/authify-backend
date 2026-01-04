@@ -62,5 +62,12 @@ const resetPwdLimitMiddleware = rateLimit({
     store: new RedisStore({
         sendCommand: (...args) => redisClient.sendCommand(args),
     }),
-    message: 'Too many requests. Please try again later.',
+    handler: (req, res, next) => {
+        next(
+            new AppError('Too many requests. Please try again later.', {
+                status: 429,
+                code: 'RATE_LIMIT',
+            })
+        );
+    },
 });
