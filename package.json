@@ -1,0 +1,21 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Authify — Secure authentication built with the MERN stack.",
+  "homepage": "https://github.com/quantumrahman/authify-backend#readme",
+  "bugs": {
+    "url": "https://github.com/quantumrahman/authify-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quantumrahman/authify-backend.git"
+  },
+  "license": "ISC",
+  "author": "Rakibul Rahman",
+  "type": "module",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js"
+  }
+}
