@@ -1,5 +1,6 @@
 // import module --------------------------------------->
 import chalk from 'chalk';
+import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 
 // hash password generator ----------------------------->
@@ -28,4 +29,15 @@ export const generateHashPassword = async (pwd) => {
         console.log(chalk.red('Password cannot be hashing.'), error.message);
         throw error;
     }
+};
+
+// hash otp generator ---------------------------------->
+export const generateHashOtp = (otp) => {
+    if (typeof otp !== 'string') {
+        throw new Error('OTP must be a string format');
+    }
+
+    const hashedOtp = crypto.createHash('sha256').update(otp).digest('hex');
+
+    return hashedOtp;
 };
