@@ -13,7 +13,24 @@ const signUpValidationSchema = zod
             .string({ required_error: 'Email is required.' })
             .trim()
             .toLowerCase()
-            .email('Invalild email address.')
+            .email('Invalid email address.')
+            .max(254, 'Email must not be more than 254 characters.'),
+        password: zod
+            .string({ required_error: 'Password is required.' })
+            .trim()
+            .min(8, 'Password must be at least 8 characters.')
+            .max(64, 'Password must not be more than 64 characters.'),
+    })
+    .strict();
+
+// sign-in validation schema --------------------------->
+const signInValidationSchema = zod
+    .object({
+        email: zod
+            .string({ required_error: 'Email is required.' })
+            .trim()
+            .toLowerCase()
+            .email('Invalid email address.')
             .max(254, 'Email must not be more than 254 characters.'),
         password: zod
             .string({ required_error: 'Password is required.' })
