@@ -32,3 +32,13 @@ const otpLimitMiddleware = rateLimit({
     }),
     message: 'Too many requests. Please try again later.',
 });
+
+// reset password limit middleware --------------------->
+const resetPwdLimitMiddleware = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 3,
+    store: new RedisStore({
+        sendCommand: (...args) => redisClient.sendCommand(args),
+    }),
+    message: 'Too many requests. Please try again later.',
+});
