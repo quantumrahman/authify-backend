@@ -5,8 +5,18 @@ import redisClient from '../config/config.redis.js';
 
 // sign-up limit middleware ---------------------------->
 const signUpLimitMiddleware = rateLimit({
-    windowMs: 10 * 60 * 1000,
-    max: 5,
+    windowMs: 15 * 60 * 1000,
+    max: 10,
+    store: new RedisStore({
+        sendCommand: (...args) => redisClient.sendCommand(args),
+    }),
+    message: 'Too many requests. Please try again later.',
+});
+
+// sign-in limit middleware ---------------------------->
+const signInLimitMiddleware = rateLimit({
+    windowMs: 5 * 60 * 1000,
+    max: 3,
     store: new RedisStore({
         sendCommand: (...args) => redisClient.sendCommand(args),
     }),
