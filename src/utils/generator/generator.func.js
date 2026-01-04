@@ -2,6 +2,7 @@
 import chalk from 'chalk';
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 // hash password generator ----------------------------->
 export const generateHashPassword = async (pwd) => {
@@ -54,4 +55,23 @@ export const generateOtp = (length = 6) => {
     const otp = crypto.randomInt(min, max);
 
     return otp.toString();
+};
+
+// token generator ------------------------------------->
+export const generateJwtToken = ({ id, email }) => {
+    if (typeof id !== 'string' || typeof email !== 'string') {
+        throw new Error('Content must be a string format.');
+    }
+
+    const jwtSecret = String(process.env.JWT_SECRET);
+
+    if (!jwtSecret) {
+        throw new Error('JWT secret is missing in environment variables.');
+    }
+
+    const jwtToken = jwt.sign({ id, email }, jwtSecret, {
+        expiresIn: '7d',
+    });
+
+    return jwtToken;
 };
