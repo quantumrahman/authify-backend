@@ -22,3 +22,13 @@ const signInLimitMiddleware = rateLimit({
     }),
     message: 'Too many requests. Please try again later.',
 });
+
+// otp limit middleware -------------------------------->
+const otpLimitMiddleware = rateLimit({
+    windowMs: 10 * 60 * 1000,
+    max: 3,
+    store: new RedisStore({
+        sendCommand: (...args) => redisClient.sendCommand(args),
+    }),
+    message: 'Too many requests. Please try again later.',
+});
