@@ -3,10 +3,13 @@ import 'dotenv/config';
 import chalk from 'chalk';
 import app from './app.js';
 import mongoose from 'mongoose';
+import dbConnection from './database/db.connection.js';
 
 // server function ------------------------------------->
 const startServer = async () => {
     try {
+        await dbConnection();
+
         const port = Number(process.env.PORT) || 4000;
 
         const server = app.listen(port, () => {
